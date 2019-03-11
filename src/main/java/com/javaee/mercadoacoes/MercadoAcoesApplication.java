@@ -1,13 +1,13 @@
-package com.mercadoacoes.mercadoacoes;
+package com.javaee.mercadoacoes;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class DemoApplication {
+public class MercadoAcoesApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(DemoApplication.class, args);
+		SpringApplication.run(MercadoAcoesApplication.class, args);
 	}
 
 }
