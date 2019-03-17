@@ -1,4 +1,4 @@
-package com.javaee.mercadoacoes.config;
+package com.javaee.stockmarket.config;
 
 import java.util.ArrayList;
 

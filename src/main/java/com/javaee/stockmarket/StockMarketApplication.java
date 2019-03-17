@@ -1,13 +1,13 @@
-package com.javaee.mercadoacoes;
+package com.javaee.stockmarket;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class MercadoAcoesApplication {
+public class StockMarketApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(MercadoAcoesApplication.class, args);
+		SpringApplication.run(StockMarketApplication.class, args);
 	}
 
 }
