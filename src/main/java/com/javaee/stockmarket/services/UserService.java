@@ -2,19 +2,18 @@ package com.javaee.stockmarket.services;
 
 import java.util.List;
 
+import com.javaee.stockmarket.api.v1.model.UserDTO;
 import com.javaee.stockmarket.domain.User;
 
 public interface UserService {
 
-	User getById(Long id);
+	UserDTO getById(Long id);
 
-    List<User> getAllUsers();
+    List<UserDTO> getAllUsers();
 
-    User createNew(User user);
+    UserDTO createNew(UserDTO user);
 
-    User save(Long id, User user);
-
-    User patch(Long id, User user);
+    UserDTO save(Long id, UserDTO user);
 
     void deleteById(Long id);
 }

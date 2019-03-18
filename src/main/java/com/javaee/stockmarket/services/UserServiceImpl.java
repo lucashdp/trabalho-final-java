@@ -1,71 +1,74 @@
 package com.javaee.stockmarket.services;
 
-import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
+import java.util.stream.Collectors;
+import java.util.stream.StreamSupport;
+
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
 
 import org.springframework.stereotype.Service;
 
 import com.javaee.stockmarket.domain.User;
-import com.javaee.stockmarket.exceptions.ResourceNotFoundException;
+
+import com.javaee.stockmarket.api.v1.model.*;
+import com.javaee.stockmarket.repositories.*;
+import com.javaee.stockmarket.api.v1.mapper.*;
 
 @Service
 public class UserServiceImpl implements UserService {
 
-    private List<User> users = new ArrayList<>();
-    private Long actualId = 0L;
+    private UserRepository userRepository;
 
-    @Override
-    public User getById(Long id) {
-        return this.users.stream().filter(user -> user.getId().equals(id)).findFirst()
-                .orElseThrow(ResourceNotFoundException::new);
+    private final UserMapper userMapper;
+
+    public UserServiceImpl(UserRepository userRepository, UserMapper userMapper) {
+        this.userRepository = userRepository;
+        this.userMapper = userMapper;
     }
 
     @Override
-    public List<User> getAllUsers() {
-        return this.users;
+    public List<UserDTO> getAllUsers() {
+        return StreamSupport.stream(this.userRepository.findAll().spliterator(), false).map(userMapper::userToUserDTO)
+                .collect(Collectors.toList());
     }
 
     @Override
-    public User createNew(User user) {
-        return saveAndReturn(user);
+    public UserDTO getById(Long id) {
+        User user = getUserById(id);
+        return userMapper.userToUserDTO(user);
     }
 
-    @Override
-    public User save(Long id, User user) {
-        user.setId(id);
-        return saveAndReturn(user);
-    }
+    private User getUserById(Long id) {
+        Optional<User> userOptional = userRepository.findById(id);
 
-    @Override
-    public User patch(Long id, User user) {
-        User savedUser = getById(id);
-        if (user.getName() != null && !user.getName().isEmpty()) {
-            savedUser.setName(user.getName());
+        if (!userOptional.isPresent()) {
+            throw new IllegalArgumentException("User Not Found For ID value: " + id.toString());
         }
-        if (user.getPassword() != null && !user.getPassword().isEmpty()) {
-            savedUser.setPassword(user.getPassword());
-        }
-        if (user.getActive() != null) {
-            savedUser.setActive(user.getActive());
-        }
-        return saveAndReturn(savedUser);
+        return userOptional.get();
     }
 
     @Override
+    @Transactional(propagation = Propagation.REQUIRED)
+    public UserDTO createNew(UserDTO userDTO) {
+        User detachedUser = userMapper.userDTOToUser(userDTO);
+        User userSaved = userRepository.save(detachedUser);
+        return userMapper.userToUserDTO(userSaved);
+    }
+
+    @Override
+    @Transactional(propagation = Propagation.REQUIRED)
+    public UserDTO save(Long id, UserDTO userDTO) {
+        User detachedUser = userMapper.userDTOToUser(userDTO);
+        detachedUser.setId(id);
+        User userSaved = userRepository.save(detachedUser);
+        return userMapper.userToUserDTO(userSaved);
+    }
+
+    @Override
+    @Transactional(propagation = Propagation.REQUIRED)
     public void deleteById(Long id) {
-        this.users.removeIf(user -> user.getId().equals(id));
-    }
-
-    private User saveAndReturn(User user) {
-        if (user.getId() != null) {
-            User savedUser = getById(user.getId());
-            this.users.set(this.users.indexOf(savedUser), user);
-        } else {
-            actualId++;
-            user.setId(actualId);
-            this.users.add(user);
-        }
-
-        return user;
+        userRepository.deleteById(id);
     }
 }
