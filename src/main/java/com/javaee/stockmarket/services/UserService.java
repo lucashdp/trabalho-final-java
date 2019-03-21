@@ -3,7 +3,6 @@ package com.javaee.stockmarket.services;
 import java.util.List;
 
 import com.javaee.stockmarket.api.v1.model.UserDTO;
-import com.javaee.stockmarket.domain.User;
 
 public interface UserService {
 

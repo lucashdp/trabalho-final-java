@@ -11,9 +11,9 @@ spring:
 spring:
   profiles: dev
   datasource:
-    url: jdbc:mysql://localhost:3306/stockmarket_dev
-    username: springjpa_dev_user
-    password: root
+    url: jdbc:mysql://mysql995.umbler.com:41890/trabalho-final-j
+    username: lucashdp
+    password: LbRLPp9Q7rkN7KG
     platform: mysql
     initialization-mode: always
     continue-on-error: true
