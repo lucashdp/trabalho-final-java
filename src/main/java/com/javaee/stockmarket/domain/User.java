@@ -28,8 +28,6 @@ public class User {
 	private Long id;
 
 	private String name;
-
-	private Boolean active;
 	
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "owner")
     @JsonIgnoreProperties("owner")

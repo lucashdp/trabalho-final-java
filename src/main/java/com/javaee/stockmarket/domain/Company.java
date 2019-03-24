@@ -29,8 +29,6 @@ public class Company {
 
     private String name;
 
-    private Boolean active;
-
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "company")
     @JsonIgnoreProperties("company")
     private List<Stock> stock;
