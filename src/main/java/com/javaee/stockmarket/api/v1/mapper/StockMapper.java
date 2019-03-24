@@ -59,8 +59,6 @@ public class StockMapper {
                 throw new IllegalArgumentException("User Not Found For ID value: " + owner_id);
             }
             stock.setOwner(userOptional.get());
-        } else {
-            throw new IllegalArgumentException("User Not Found For ID value: " + owner_id);
         }
     }
 
