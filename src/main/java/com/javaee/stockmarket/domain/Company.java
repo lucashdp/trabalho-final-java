@@ -33,5 +33,5 @@ public class Company {
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "company")
     @JsonIgnoreProperties("company")
-    private List<Stock> stocks;
+    private List<Stock> stock;
 }

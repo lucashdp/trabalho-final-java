@@ -33,5 +33,5 @@ public class User {
 	
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "owner")
     @JsonIgnoreProperties("owner")
-    private List<Stock> stocks;
+    private List<Stock> stock;
 }

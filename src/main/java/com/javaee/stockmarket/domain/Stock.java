@@ -33,10 +33,10 @@ public class Stock {
 	private LocalDateTime purchaseDate;
 
 	@ManyToOne
-	@JsonIgnoreProperties("stocks")
+	@JsonIgnoreProperties("stock")
 	private Company company;
 
 	@ManyToOne
-	@JsonIgnoreProperties("stocks")
+	@JsonIgnoreProperties("stock")
 	private User owner;
 }
