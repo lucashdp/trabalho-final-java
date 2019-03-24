@@ -1,5 +1,7 @@
 package com.javaee.stockmarket.services;
 
+import java.time.LocalDateTime;
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -52,6 +54,7 @@ public class StockServiceImpl implements StockService {
     @Override
     @Transactional(propagation = Propagation.REQUIRED)
     public StockDTO createNew(StockDTO stockDTO) {
+        stockDTO.setPurchaseDate(LocalDateTime.now());
         Stock detachedStock = stockMapper.stockDTOToStock(stockDTO);
         Stock stockSaved = stockRepository.save(detachedStock);
         return stockMapper.stockToStockDTO(stockSaved);
@@ -60,6 +63,7 @@ public class StockServiceImpl implements StockService {
     @Override
     @Transactional(propagation = Propagation.REQUIRED)
     public StockDTO save(Long id, StockDTO stockDTO) {
+        stockDTO.setPurchaseDate(LocalDateTime.now());
         Stock detachedStock = stockMapper.stockDTOToStock(stockDTO);
         detachedStock.setId(id);
         Stock stockSaved = stockRepository.save(detachedStock);
