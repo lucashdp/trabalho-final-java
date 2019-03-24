@@ -38,5 +38,5 @@ public class Action {
 
 	@ManyToOne
 	@JsonIgnoreProperties("actions")
-	private User user;
+	private User owner;
 }

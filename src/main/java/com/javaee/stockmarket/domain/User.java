@@ -31,7 +31,7 @@ public class User {
 
 	private Boolean active;
 	
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "user")
-    @JsonIgnoreProperties("user")
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "owner")
+    @JsonIgnoreProperties("owner")
     private List<Action> actions;
 }
