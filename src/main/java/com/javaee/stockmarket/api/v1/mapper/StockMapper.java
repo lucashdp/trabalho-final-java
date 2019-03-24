@@ -40,17 +40,6 @@ public class StockMapper {
         return stockViewDTO;
     }
 
-    public Stock stockViewDTOToStock(StockViewDTO stockViewDTO) {
-        final Stock stock = new Stock();
-        stock.setId(stockViewDTO.getId());
-        stock.setPrice(stockViewDTO.getPrice());
-        stock.setInitialPrice(stockViewDTO.getInitialPrice());
-        stock.setPurchaseDate(stockViewDTO.getPurchaseDate());
-        fillCompany(stockViewDTO.getCompany().getId(), stock);
-        fillOwner(stockViewDTO.getOwner().getId(), stock);
-        return stock;
-    }
-
     private void fillCompany(Long company_id, final Stock stock) {
         if (company_id != null) {
             Optional<Company> companyOptional = companyRepository.findById(company_id);
