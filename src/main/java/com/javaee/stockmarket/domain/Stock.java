@@ -16,11 +16,11 @@ import lombok.Getter;
 import lombok.Setter;
 
 @Entity
-@Table(name = "Actions")
+@Table(name = "Stocks")
 @Data
 @Getter
 @Setter
-public class Action {
+public class Stock {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -33,10 +33,10 @@ public class Action {
 	private LocalDateTime purchaseDate;
 
 	@ManyToOne
-	@JsonIgnoreProperties("actions")
+	@JsonIgnoreProperties("stocks")
 	private Company company;
 
 	@ManyToOne
-	@JsonIgnoreProperties("actions")
+	@JsonIgnoreProperties("stocks")
 	private User owner;
 }
