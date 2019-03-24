@@ -69,10 +69,4 @@ public class StockServiceImpl implements StockService {
         Stock stockSaved = stockRepository.save(detachedStock);
         return stockMapper.stockToStockViewDTO(stockSaved);
     }
-
-    @Override
-    @Transactional(propagation = Propagation.REQUIRED)
-    public void deleteById(Long id) {
-        stockRepository.deleteById(id);
-    }
 }

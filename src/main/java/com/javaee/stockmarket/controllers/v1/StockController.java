@@ -59,11 +59,4 @@ public class StockController {
     public StockViewDTO update(@PathVariable Long id, @RequestBody StockDTO stock){
         return companyService.save(id, stock);
     }
-
-    @ApiOperation(value = "Delete a Stock")
-    @DeleteMapping({"/{id}"})
-    @ResponseStatus(HttpStatus.OK)
-    public void delete(@PathVariable Long id){
-        companyService.deleteById(id);
-    }
 }

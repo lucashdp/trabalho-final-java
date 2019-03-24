@@ -14,6 +14,4 @@ public interface StockService {
     StockViewDTO createNew(StockDTO stock);
 
     StockViewDTO save(Long id, StockDTO stock);
-
-    void deleteById(Long id);
 }
