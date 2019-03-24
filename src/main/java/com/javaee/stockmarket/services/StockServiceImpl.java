@@ -1,7 +1,6 @@
 package com.javaee.stockmarket.services;
 
 import java.time.LocalDateTime;
-import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -31,15 +30,15 @@ public class StockServiceImpl implements StockService {
     }
 
     @Override
-    public List<StockDTO> getAllStock() {
-        return StreamSupport.stream(this.stockRepository.findAll().spliterator(), false).map(stockMapper::stockToStockDTO)
-                .collect(Collectors.toList());
+    public List<StockViewDTO> getAllStock() {
+        return StreamSupport.stream(this.stockRepository.findAll().spliterator(), false)
+                .map(stockMapper::stockToStockViewDTO).collect(Collectors.toList());
     }
 
     @Override
-    public StockDTO getById(Long id) {
+    public StockViewDTO getById(Long id) {
         Stock stock = getStockById(id);
-        return stockMapper.stockToStockDTO(stock);
+        return stockMapper.stockToStockViewDTO(stock);
     }
 
     private Stock getStockById(Long id) {
@@ -53,21 +52,22 @@ public class StockServiceImpl implements StockService {
 
     @Override
     @Transactional(propagation = Propagation.REQUIRED)
-    public StockDTO createNew(StockDTO stockDTO) {
-        stockDTO.setPurchaseDate(LocalDateTime.now());
+    public StockViewDTO createNew(StockDTO stockDTO) {
         Stock detachedStock = stockMapper.stockDTOToStock(stockDTO);
+        detachedStock.setPurchaseDate(LocalDateTime.now());
         Stock stockSaved = stockRepository.save(detachedStock);
-        return stockMapper.stockToStockDTO(stockSaved);
+
+        return stockMapper.stockToStockViewDTO(stockSaved);
     }
 
     @Override
     @Transactional(propagation = Propagation.REQUIRED)
-    public StockDTO save(Long id, StockDTO stockDTO) {
-        stockDTO.setPurchaseDate(LocalDateTime.now());
+    public StockViewDTO save(Long id, StockDTO stockDTO) {
         Stock detachedStock = stockMapper.stockDTOToStock(stockDTO);
+        detachedStock.setPurchaseDate(LocalDateTime.now());
         detachedStock.setId(id);
         Stock stockSaved = stockRepository.save(detachedStock);
-        return stockMapper.stockToStockDTO(stockSaved);
+        return stockMapper.stockToStockViewDTO(stockSaved);
     }
 
     @Override

@@ -3,16 +3,17 @@ package com.javaee.stockmarket.services;
 import java.util.List;
 
 import com.javaee.stockmarket.api.v1.model.StockDTO;
+import com.javaee.stockmarket.api.v1.model.StockViewDTO;
 
 public interface StockService {
 
-	StockDTO getById(Long id);
+	StockViewDTO getById(Long id);
 
-    List<StockDTO> getAllStock();
+    List<StockViewDTO> getAllStock();
 
-    StockDTO createNew(StockDTO stock);
+    StockViewDTO createNew(StockDTO stock);
 
-    StockDTO save(Long id, StockDTO stock);
+    StockViewDTO save(Long id, StockDTO stock);
 
     void deleteById(Long id);
 }

@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.javaee.stockmarket.api.v1.model.StockDTO;
+import com.javaee.stockmarket.api.v1.model.*;
 import com.javaee.stockmarket.services.StockService;
 
 import io.swagger.annotations.Api;
@@ -35,28 +35,28 @@ public class StockController {
     @ApiOperation(value = "View List of Stock", notes="These endpoint will return all stock")
     @GetMapping
     @ResponseStatus(HttpStatus.OK)
-    public List<StockDTO> getAll(){
+    public List<StockViewDTO> getAll(){
         return companyService.getAllStock();
     }
 
     @ApiOperation(value = "Get Stock by Id")
     @GetMapping({"/{id}"})
     @ResponseStatus(HttpStatus.OK)
-    public StockDTO getById(@PathVariable Long id){
+    public StockViewDTO getById(@PathVariable Long id){
         return companyService.getById(id);
     }
 
     @ApiOperation(value = "Create a new Stock")
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public StockDTO create(@RequestBody StockDTO stock){
+    public StockViewDTO create(@RequestBody StockDTO stock){
         return companyService.createNew(stock);
     }
 
     @ApiOperation(value = "Update an existing Stock")
     @PutMapping({"/{id}"})
     @ResponseStatus(HttpStatus.OK)
-    public StockDTO update(@PathVariable Long id, @RequestBody StockDTO stock){
+    public StockViewDTO update(@PathVariable Long id, @RequestBody StockDTO stock){
         return companyService.save(id, stock);
     }
 
