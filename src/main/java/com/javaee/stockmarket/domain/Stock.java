@@ -6,6 +6,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
@@ -25,14 +26,15 @@ public class Stock {
 	private Long id;
 
 	private Float price;
-	
+
 	private Float initialPrice;
-	
+
 	private LocalDateTime purchaseDate;
 
 	@ManyToOne
 	private Company company;
 
 	@ManyToOne
+	@JoinColumn(nullable = true)
 	private User owner;
 }

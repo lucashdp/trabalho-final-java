@@ -14,4 +14,6 @@ public class CompanyDTO {
 	@NotBlank
 	@Size(min = 2, max = 255)
 	private String name;
+
+	private Long stock_number;
 }

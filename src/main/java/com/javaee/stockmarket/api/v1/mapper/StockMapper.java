@@ -6,6 +6,7 @@ import java.util.Optional;
 
 import com.javaee.stockmarket.api.v1.model.StockDTO;
 import com.javaee.stockmarket.api.v1.model.StockViewDTO;
+import com.javaee.stockmarket.api.v1.model.UserDTO;
 import com.javaee.stockmarket.domain.Company;
 import com.javaee.stockmarket.domain.Stock;
 import com.javaee.stockmarket.domain.User;
@@ -36,8 +37,15 @@ public class StockMapper {
         stockViewDTO.setInitialPrice(stock.getInitialPrice());
         stockViewDTO.setPurchaseDate(stock.getPurchaseDate());
         stockViewDTO.setCompany(companyMapper.companyToCompanyDTO(stock.getCompany()));
-        stockViewDTO.setOwner(userMapper.userToUserDTO(stock.getOwner()));
+        stockViewDTO.setOwner(getOwnerDto(stock));
         return stockViewDTO;
+    }
+
+    private UserDTO getOwnerDto(Stock stock) {
+        if (stock.getOwner() != null)
+            return userMapper.userToUserDTO(stock.getOwner());
+        else
+            return null;
     }
 
     private void fillCompany(Long company_id, final Stock stock) {
@@ -53,7 +61,7 @@ public class StockMapper {
     }
 
     private void fillOwner(Long owner_id, final Stock stock) {
-        if (owner_id != null) {
+        if (owner_id != 0 && owner_id != null) {
             Optional<User> userOptional = userRepository.findById(owner_id);
             if (!userOptional.isPresent()) {
                 throw new IllegalArgumentException("User Not Found For ID value: " + owner_id);
