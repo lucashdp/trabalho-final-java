@@ -1,6 +1,7 @@
 package com.javaee.stockmarket.domain;
 
-import java.util.List;
+import java.util.HashSet;
+import java.util.Set;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
@@ -9,8 +10,6 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
-
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import lombok.Data;
 import lombok.Getter;
@@ -28,8 +27,7 @@ public class User {
 	private Long id;
 
 	private String name;
-	
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "owner")
-    @JsonIgnoreProperties("owner")
-    private List<Stock> stock;
+
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "company")
+	private Set<Stock> stock = new HashSet<>();
 }

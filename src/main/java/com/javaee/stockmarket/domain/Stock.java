@@ -9,8 +9,6 @@ import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-
 import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
@@ -33,10 +31,8 @@ public class Stock {
 	private LocalDateTime purchaseDate;
 
 	@ManyToOne
-	@JsonIgnoreProperties("stock")
 	private Company company;
 
 	@ManyToOne
-	@JsonIgnoreProperties("stock")
 	private User owner;
 }
