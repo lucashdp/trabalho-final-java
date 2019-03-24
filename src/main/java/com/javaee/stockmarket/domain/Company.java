@@ -17,21 +17,21 @@ import lombok.Getter;
 import lombok.Setter;
 
 @Entity
-@Table(name = "Users")
+@Table(name = "Companies")
 @Data
 @Getter
 @Setter
-public class User {
+public class Company {
 
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Long id;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
 
-	private String name;
+    private String name;
 
-	private Boolean active;
-	
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "user")
-    @JsonIgnoreProperties("user")
+    private Boolean active;
+
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "company")
+    @JsonIgnoreProperties("company")
     private List<Action> actions;
 }
