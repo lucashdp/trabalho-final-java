@@ -17,7 +17,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 @Entity
-@Table(name = "Companies")
+@Table(name = "companies")
 @Data
 @Getter
 @Setter
