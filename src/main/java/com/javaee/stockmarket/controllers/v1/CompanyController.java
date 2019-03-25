@@ -24,7 +24,7 @@ import io.swagger.annotations.ApiOperation;
 @RequestMapping(CompanyController.BASE_URL)
 public class CompanyController {
 
-	public static final String BASE_URL = "/api/v1/companies";
+    public static final String BASE_URL = "/api/v1/companies";
 
     private final CompanyService companyService;
 
@@ -32,38 +32,45 @@ public class CompanyController {
         this.companyService = companyService;
     }
 
-    @ApiOperation(value = "View List of Companies", notes="These endpoint will return all companies")
+    @ApiOperation(value = "View List of Companies", notes = "These endpoint will return all companies")
     @GetMapping
     @ResponseStatus(HttpStatus.OK)
-    public List<CompanyDTO> getAll(){
+    public List<CompanyDTO> getAll() {
         return companyService.getAllCompanies();
     }
 
     @ApiOperation(value = "Get Company by Id")
-    @GetMapping({"/{id}"})
+    @GetMapping({ "/{id}" })
     @ResponseStatus(HttpStatus.OK)
-    public CompanyDTO getById(@PathVariable Long id){
+    public CompanyDTO getById(@PathVariable Long id) {
         return companyService.getById(id);
     }
 
     @ApiOperation(value = "Create a new Company")
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public CompanyDTO create(@RequestBody CompanyDTO company){
+    public CompanyDTO create(@RequestBody CompanyDTO company) {
         return companyService.createNew(company);
     }
 
     @ApiOperation(value = "Update an existing Company")
-    @PutMapping({"/{id}"})
+    @PutMapping({ "/{id}" })
     @ResponseStatus(HttpStatus.OK)
-    public CompanyDTO update(@PathVariable Long id, @RequestBody CompanyDTO company){
+    public CompanyDTO update(@PathVariable Long id, @RequestBody CompanyDTO company) {
         return companyService.save(id, company);
     }
 
     @ApiOperation(value = "Delete a Company")
-    @DeleteMapping({"/{id}"})
+    @DeleteMapping({ "/{id}" })
     @ResponseStatus(HttpStatus.OK)
-    public void delete(@PathVariable Long id){
+    public void delete(@PathVariable Long id) {
         companyService.deleteById(id);
+    }
+
+    @ApiOperation(value = "Delete stock of the Company")
+    @DeleteMapping({ "/{id}/stock" })
+    @ResponseStatus(HttpStatus.OK)
+    public void deleteStockByCompany(@PathVariable Long id) {
+        companyService.deleteStockByCompany(id);
     }
 }

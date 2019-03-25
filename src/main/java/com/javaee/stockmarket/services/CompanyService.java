@@ -15,4 +15,6 @@ public interface CompanyService {
     CompanyDTO save(Long id, CompanyDTO company);
 
     void deleteById(Long id);
+
+    void deleteStockByCompany(Long id);
 }

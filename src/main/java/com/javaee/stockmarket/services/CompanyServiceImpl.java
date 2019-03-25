@@ -106,6 +106,22 @@ public class CompanyServiceImpl implements CompanyService {
     @Override
     @Transactional(propagation = Propagation.REQUIRED)
     public void deleteById(Long id) {
-        companyRepository.deleteById(id);
+        Company company = getCompanyById(id);
+        List<Stock> stockList = stockRepository.findByCompany(company);
+
+        if (stockList.size() > 0)
+            throw new IllegalArgumentException("Can not delete company with stock");
+        else
+            companyRepository.deleteById(id);
+    }
+
+    @Override
+    @Transactional(propagation = Propagation.REQUIRED)
+    public void deleteStockByCompany(Long id) {
+        Company company = getCompanyById(id);
+        List<Stock> stockList = stockRepository.findByCompany(company);
+
+        if (stockList.size() > 0)
+            stockRepository.deleteAll(stockList);
     }
 }
