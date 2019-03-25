@@ -63,6 +63,9 @@ public class StockServiceImpl implements StockService {
     @Override
     @Transactional(propagation = Propagation.REQUIRED)
     public StockViewDTO save(Long id, StockDTO stockDTO) {
+        Stock stock = getStockById(id);
+        stockDTO.setCompany_id(stock.getCompany().getId());
+        stockDTO.setInitialPrice(stock.getInitialPrice());
         Stock detachedStock = stockMapper.stockDTOToStock(stockDTO);
         detachedStock.setPurchaseDate(LocalDateTime.now());
         detachedStock.setId(id);
