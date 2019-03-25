@@ -3,7 +3,6 @@ package com.javaee.stockmarket.api.v1.mapper;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
-import java.util.Optional;
 
 import com.javaee.stockmarket.api.v1.model.CompanyDTO;
 import com.javaee.stockmarket.domain.Company;

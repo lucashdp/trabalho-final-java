@@ -1,5 +1,7 @@
 package com.javaee.stockmarket.services;
 
+import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -10,21 +12,26 @@ import org.springframework.transaction.annotation.Transactional;
 
 import org.springframework.stereotype.Service;
 
+import com.javaee.stockmarket.domain.Stock;
 import com.javaee.stockmarket.domain.User;
 
 import com.javaee.stockmarket.api.v1.model.*;
 import com.javaee.stockmarket.repositories.*;
+import com.google.common.collect.Lists;
 import com.javaee.stockmarket.api.v1.mapper.*;
 
 @Service
 public class UserServiceImpl implements UserService {
 
     private UserRepository userRepository;
+    private StockRepository stockRepository;
 
     private final UserMapper userMapper;
 
-    public UserServiceImpl(UserRepository userRepository, UserMapper userMapper) {
+    public UserServiceImpl(UserRepository userRepository, UserMapper userMapper, StockRepository stockRepository) {
         this.userRepository = userRepository;
+        this.stockRepository = stockRepository;
+
         this.userMapper = userMapper;
     }
 
@@ -69,6 +76,20 @@ public class UserServiceImpl implements UserService {
     @Override
     @Transactional(propagation = Propagation.REQUIRED)
     public void deleteById(Long id) {
-        userRepository.deleteById(id);
+        List<Stock> stockList = findStockListByUser(id);
+
+        if (stockList.size() > 0)
+            throw new IllegalArgumentException("Can not delete user with stock");
+        else
+            userRepository.deleteById(id);
+    }
+
+    private List<Stock> findStockListByUser(Long id) {
+        List<Stock> stockList = Lists.newArrayList(stockRepository.findAll());
+
+        stockList.removeIf(s -> s.getOwner() == null);
+        stockList.removeIf(s -> s.getOwner().getId() != id);
+
+        return stockList;
     }
 }

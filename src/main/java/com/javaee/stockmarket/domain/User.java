@@ -28,6 +28,6 @@ public class User {
 
 	private String name;
 
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "company")
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "owner")
 	private Set<Stock> stock = new HashSet<>();
 }
