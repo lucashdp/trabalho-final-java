@@ -28,6 +28,8 @@ public class Company {
 
     private String name;
 
+    private Float initial_stock_price;
+
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "company")
-	private Set<Stock> stock = new HashSet<>();
+    private Set<Stock> stock = new HashSet<>();
 }

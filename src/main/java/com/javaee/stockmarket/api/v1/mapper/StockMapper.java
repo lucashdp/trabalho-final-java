@@ -61,7 +61,7 @@ public class StockMapper {
     }
 
     private void fillOwner(Long owner_id, final Stock stock) {
-        if (owner_id != 0 && owner_id != null) {
+        if (owner_id != null && owner_id != 0) {
             Optional<User> userOptional = userRepository.findById(owner_id);
             if (!userOptional.isPresent()) {
                 throw new IllegalArgumentException("User Not Found For ID value: " + owner_id);

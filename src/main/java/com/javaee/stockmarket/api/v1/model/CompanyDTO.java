@@ -16,4 +16,6 @@ public class CompanyDTO {
 	private String name;
 
 	private Long stock_number;
+
+	private Float initial_stock_price;
 }

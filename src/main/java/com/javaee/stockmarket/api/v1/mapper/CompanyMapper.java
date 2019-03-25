@@ -22,6 +22,7 @@ public class CompanyMapper {
         final CompanyDTO companyDTO = new CompanyDTO();
         companyDTO.setId(company.getId());
         companyDTO.setName(company.getName());
+        companyDTO.setInitial_stock_price(company.getInitial_stock_price());
         companyDTO.setStock_number(getStock_number(company));
         return companyDTO;
     }
@@ -39,6 +40,7 @@ public class CompanyMapper {
         final Company company = new Company();
         company.setId(companyDTO.getId());
         company.setName(companyDTO.getName());
+        company.setInitial_stock_price(companyDTO.getInitial_stock_price());
         return company;
     }
 }
