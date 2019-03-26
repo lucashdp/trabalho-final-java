@@ -28,6 +28,8 @@ public class User {
 
 	private String name;
 
+	private String email;
+
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "owner")
 	private Set<Stock> stock = new HashSet<>();
 }
