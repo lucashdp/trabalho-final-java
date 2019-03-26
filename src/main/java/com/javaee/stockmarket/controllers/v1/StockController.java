@@ -51,11 +51,4 @@ public class StockController {
     public StockViewDTO create(@RequestBody StockDTO stock){
         return companyService.createNew(stock);
     }
-
-    @ApiOperation(value = "Update an existing Stock")
-    @PutMapping({"/{id}"})
-    @ResponseStatus(HttpStatus.OK)
-    public StockViewDTO update(@PathVariable Long id, @RequestBody StockDTO stock){
-        return companyService.save(id, stock);
-    }
 }
